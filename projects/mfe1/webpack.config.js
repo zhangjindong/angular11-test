@@ -3,43 +3,41 @@ const mf = require("@angular-architects/module-federation/webpack");
 const path = require("path");
 
 const sharedMappings = new mf.SharedMappings();
-sharedMappings.register(
-  path.join(__dirname, '../../tsconfig.json'),
-  [/* mapped paths to share */]);
+sharedMappings.register(path.join(__dirname, "../../tsconfig.json"), [
+  "auth-lib",
+]);
 
 module.exports = {
   output: {
-    uniqueName: "mfe1"
+    uniqueName: "mfe1",
   },
   optimization: {
     // Only needed to bypass a temporary bug
-    runtimeChunk: false
+    runtimeChunk: false,
   },
   plugins: [
     new ModuleFederationPlugin({
-      
-        // For remotes (please adjust)
-        // name: "mfe1",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/mfe1/src/app/app.component.ts',
-        // },        
-        
-        // For hosts (please adjust)
-        // remotes: {
-        //     "shell": "shell@http://localhost:5000/remoteEntry.js",
-        //     "app1": "app1@http://localhost:4200/remoteEntry.js",
+      // For remotes (please adjust)
+      name: "mfe1",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./Module": "./projects/mfe1/src/app/flights/flights.module.ts",
+      },
 
-        // },
+      // For hosts (please adjust)
+      // remotes: {
+      //     "shell": "shell@http://localhost:5000/remoteEntry.js",
+      //     "app1": "app1@http://localhost:4200/remoteEntry.js",
 
-        shared: {
-          "@angular/core": { singleton: true, strictVersion: true }, 
-          "@angular/common": { singleton: true, strictVersion: true }, 
-          "@angular/router": { singleton: true, strictVersion: true },
+      // },
 
-          ...sharedMappings.getDescriptors()
-        }
-        
+      shared: {
+        "@angular/core": { singleton: true, strictVersion: true },
+        "@angular/common": { singleton: true, strictVersion: true },
+        "@angular/router": { singleton: true, strictVersion: true },
+
+        ...sharedMappings.getDescriptors(),
+      },
     }),
     sharedMappings.getPlugin(),
   ],
