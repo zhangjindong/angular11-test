@@ -17,7 +17,8 @@
     ],
     "paths": {
       "auth-lib": [
-        "projects/auth-lib/src/public-api.ts"
+        "projects/auth-lib/src/public-api.ts",
+        "dist/auth-lib",
       ]
     }
   }
