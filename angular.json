@@ -399,14 +399,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/auth-lib/tsconfig.lib.json",
-              "projects/auth-lib/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/auth-lib/**/*.ts",
+              "projects/auth-lib/**/*.html"
             ]
           }
         }
